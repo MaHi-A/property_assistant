@@ -1,5 +1,5 @@
-class Api::V1::ExpendituresController < ApiController
-  def create
+# frozen_string_literal: true
 
-  end
+class Api::V1::ExpendituresController < ApiController
+  def create; end
 end
