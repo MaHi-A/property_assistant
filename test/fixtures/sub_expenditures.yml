@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  completed_date: 2018-06-19 10:03:40
+  starts_at: 2018-06-19 10:03:40
+  ends_at: 2018-06-19 10:03:40
+  references: 
+  amount: 9.99
+  status: 1
+
+two:
+  completed_date: 2018-06-19 10:03:40
+  starts_at: 2018-06-19 10:03:40
+  ends_at: 2018-06-19 10:03:40
+  references: 
+  amount: 9.99
+  status: 1
