@@ -1,3 +1,2 @@
 class ExpendituresController < ApiController
-  
 end
