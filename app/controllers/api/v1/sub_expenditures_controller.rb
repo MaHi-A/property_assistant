@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Api::V1::SubExpendituresController < ApiController
-  before_action :find_expenditure, only: [:sub_expenditure_dates]
+  # before_action :find_expenditure
 
-  def index; end
-
-  def sub_expenditure_dates; end
+  def sub_expenditure_dates
+    SubExpenditure::Dates.call(controller, sub_expenditure_params)
+  end
 
   private
 

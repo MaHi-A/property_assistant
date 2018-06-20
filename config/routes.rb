@@ -6,10 +6,9 @@ PropertyAssistant::Application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :expenditures, only: [:create] do
-        get :sub_expenditure_dates, to: 'sub_expenditures#sub_expenditure_dates'
-        resources :sub_expenditures, only: [:index] do
-        end
       end
+
+      get :sub_expenditure_dates, to: 'sub_expenditures#sub_expenditure_dates'
     end
   end
 end
