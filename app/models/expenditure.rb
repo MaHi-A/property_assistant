@@ -5,8 +5,10 @@ class Expenditure < ApplicationRecord
   belongs_to :user
   has_many :sub_expenditures
 
-  enum status: %i[pending accepted rejected completed]
-  enum recursive_type: %i[weekly biweekly monthly yearly]
+  RECURSIVE_TYPES = %w[weekly biweekly monthly yearly].freeze
+  STATUSES = %w[pending accepted rejected completed].freeze
+  enum status: STATUSES
+  enum recursive_type: RECURSIVE_TYPES
 
   accepts_nested_attributes_for :sub_expenditures
 end

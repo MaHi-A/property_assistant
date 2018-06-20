@@ -3,5 +3,6 @@
 class SubExpenditure < ApplicationRecord
   belongs_to :expenditure
 
-  enum status: %i[pending completed]
+  STATUSES = %w[pending completed].freeze
+  enum status: STATUSES
 end

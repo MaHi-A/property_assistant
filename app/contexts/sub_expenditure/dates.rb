@@ -28,7 +28,7 @@ class SubExpenditure::Dates
   private
 
   def fetch_dates_based_on_recursive_type
-    if %w[weekly biweekly monthly yearly].include?(recursive_type)
+    if Expenditure::RECURSIVE_TYPES.include?(recursive_type)
       %w[weekly biweekly yearly].include?(recursive_type) ? fetch_dates : fetch_monthly_dates
     else
       raise UnprocessableEntityError, I18n.t('expenditure.recursive_type_error', recursive_type: recursive_type)
@@ -43,7 +43,7 @@ class SubExpenditure::Dates
     end
   end
 
-  # TODO need to work on this recursive_type
+  # TODO: need to work on this recursive_type
   def fetch_monthly_dates; end
 
   def parse_expenditure_dates
