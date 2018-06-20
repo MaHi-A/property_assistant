@@ -6,7 +6,7 @@ class Expenditure < ApplicationRecord
   has_many :sub_expenditures
 
   enum status: %i[pending accepted rejected completed]
-  enum recursive_type: %i[weekly bi-weekly monthly yearly]
+  enum recursive_type: %i[weekly biweekly monthly yearly]
 
   accepts_nested_attributes_for :sub_expenditures
 end
