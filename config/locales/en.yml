@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  invalid_date_format: 'Invalid date format'
+  expenditure:
+    recursive_type_error: "%{recursive_type} recursive_type does not exists"
