@@ -2,20 +2,18 @@
 
 class Api::V1::SubExpendituresController < ApiController
   before_action :find_expenditure, only: [:sub_expenditure_dates]
-  
+
   def index; end
 
-  def sub_expenditure_dates
-    
-  end
+  def sub_expenditure_dates; end
 
   private
 
   def find_expenditure
-    @expenditure = Expenditure.find(params[:expenditure_id])    
+    @expenditure = Expenditure.find(params[:expenditure_id])
   end
 
   def sub_expenditure_params
-
+    params.require(:expenditure).permit(:recursive_type, :starts_at, :ends_at)
   end
 end
