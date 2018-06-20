@@ -4,7 +4,7 @@ class Api::V1::SubExpendituresController < ApiController
   # before_action :find_expenditure
 
   def sub_expenditure_dates
-    SubExpenditure::Dates.call(controller, sub_expenditure_params)
+    SubExpenditure::Dates.call(self, sub_expenditure_params)
   end
 
   private
@@ -14,6 +14,6 @@ class Api::V1::SubExpendituresController < ApiController
   end
 
   def sub_expenditure_params
-    params.require(:expenditure).permit(:recursive_type, :starts_at, :ends_at)
+    params.permit(:recursive_type, :starts_at, :ends_at)
   end
 end

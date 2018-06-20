@@ -1,50 +1,49 @@
 # frozen_string_literal: true
 
 class SubExpenditure::Dates
-  attr_reader :params, :starts_at, :ends_at, :sub_expenditure_dates, :recursive_hash, :recursive_type
+  attr_reader :params, :recursive_type, :controller
 
   def self.call(controller, params)
-    new(params)
+    new(controller, params).call
   end
 
   def initialize(controller, params)
-    @controller = controller
     @params = params
+    @controller = controller
+    @sub_expenditure_dates = []
     @recursive_type = params[:recursive_type]
     @recursive_hash = { weekly: 7.days, biweekly: 14.days, yearly: 1.year }
-    @sub_expenditure_dates = []
   end
 
   def call
+    parse_expenditure_dates
     fetch_dates_based_on_recursive_type
+    render_success_response
+  end
+
+  def render_success_response
+    controller.render_success_response @sub_expenditure_dates
   end
 
   private
 
   def fetch_dates_based_on_recursive_type
-    if %i[weekly biweekly yearly].include?(recursive_type)
-      fetch_dates
-    elsif
-      fetch_montly_dates
+    if %w[weekly biweekly monthly yearly].include?(recursive_type)
+      %w[weekly biweekly yearly].include?(recursive_type) ? fetch_dates : fetch_monthly_dates
     else
-      return_and_render_error
+      raise UnprocessableEntityError, 'recursive_type not exists'
     end
   end
 
   def fetch_dates
-    when ends_at > starts_at
-      @sub_expenditure_dates << { starts_at:  starts_at }
-      starts_at += recursive_hash[recursive_type]
+    time_period = @recursive_hash[recursive_type.to_sym]
+    while @ends_at >= @starts_at
+      @sub_expenditure_dates << { starts_at: @starts_at }
+      @starts_at += time_period
     end
   end
 
-  def fetch_montly_dates; end
-
-  def return_and_render_error
-    controller.render(
-      json: { status: 'error', { data: 'Please provide the correct recursive_type'} },
-        status: :unprocessable_entity) && return
-  end
+  def fetch_monthly_dates; end
 
   def parse_expenditure_dates
     @starts_at = parse_date(params[:starts_at])
@@ -53,9 +52,7 @@ class SubExpenditure::Dates
 
   def parse_date(date)
     Date.parse(date)
-  rescue
-    controller.render(
-      json: { status: 'error', { data: 'Please provide the correct date format'} },
-      status: :unprocessable_entity) && return
+  rescue StandardError
+    raise UnprocessableEntityError, 'Please provide the correct date format'
   end
 end
