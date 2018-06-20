@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Expenditre::Create
-  attr_reader :decorator
+  attr_reader :decorator, :params
 
   def self.call(params)
+    @params = params
     new(current_user, params)
   end
 
@@ -11,5 +12,7 @@ class Expenditre::Create
     @decorator = Expenditre::Decorator.new(params)
   end
 
-  def call; end
+  def call
+    decorator.create!(params)
+  end
 end

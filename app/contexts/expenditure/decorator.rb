@@ -1,13 +1,5 @@
 class Expenditres::Decorator
-  def self.call(params)
-
-  end
-
-  def initialize(params)
-    Expenditres::
-  end
-
-  def call(params)
-    
+  def create!
+    Expenditre.create
   end
 end
