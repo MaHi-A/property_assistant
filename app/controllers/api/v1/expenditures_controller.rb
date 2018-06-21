@@ -10,7 +10,7 @@ class Api::V1::ExpendituresController < ApiController
 
   def update
     response = @expenditure.update!(expenditure_params)
-    render_success_response response
+    render_success_response @expenditure
   end
 
   private
