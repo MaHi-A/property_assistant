@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SubExpenditure::Dates
-  attr_reader :params, :recursive_type, :controller
+  attr_reader :params, :recursive_type
 
   def self.call(controller, params)
     new(controller, params).call
@@ -19,10 +19,6 @@ class SubExpenditure::Dates
     parse_expenditure_dates
     fetch_dates_based_on_recursive_type
     render_success_response
-  end
-
-  def render_success_response
-    controller.render_success_response @sub_expenditure_dates
   end
 
   private
@@ -55,5 +51,9 @@ class SubExpenditure::Dates
     Date.parse(date)
   rescue StandardError
     raise UnprocessableEntityError, I18n.t('invalid_date_format')
+  end
+
+  def render_success_response
+    @controller.render_success_response @sub_expenditure_dates
   end
 end
